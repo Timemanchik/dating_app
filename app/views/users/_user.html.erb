@@ -16,18 +16,40 @@
 
   <p>
     <strong>Sex:</strong>
-    <%= user.sex %>
+    <% if user.sex %>
+      man
+    <% else %>
+      woman
+    <% end %>
   </p>
 
   <p>
     <strong>Work:</strong>
-    <%= user.work_id %>
+    <% if !user.work.nil? %>
+      <%= user.work.title %>
+    <% else %>
+      <strong></strong>
+    <% end %>
   </p>
 
-  <p>
+  
     <strong>Yourself:</strong>
     <%= user.yourself %>
   </p>
+  
+  <p>
+    <strong>Hobby:</strong>
+    
+    <% if user.hobbies != [] %>
+      <% user.hobbies.each do |hobby| %>
+        <% if user.hobbies.last == hobby %>
+          <%= "#{hobby.title}" %>
+        <% else %>
+          <%= "#{hobby.title}, " %>
+        <% end %>
+      <% end %> 
+    <% end %>
+  </p> 
 
   <p>
     <strong>Latitude:</strong>

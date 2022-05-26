@@ -44,7 +44,12 @@
 
   <div>
     <%= f.label :work_id, style: "display: block" %>
-    <%= f.number_field :work_id %>
+    <%= f.select :work_id, options_for_select(Work.all.collect { |work| [work.title, work.id] }) %>
+  </div>
+
+  <div>
+    <%= f.label :work_id, style: "display: block" %>
+    <%= f.select :work_id, options_for_select(Work.all.collect { |work| [work.title, work.id] }) %>
   </div>
 
   <div>

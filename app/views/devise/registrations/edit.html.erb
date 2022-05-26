@@ -21,12 +21,45 @@
 
   <div>
     <%= f.label :sex, style: "display: block" %>
-    <%= f.check_box :sex %>
+    <%= f.radio_button :sex, true %>
+    <%= f.label :sex, "man" %>
+    <%= f.radio_button :sex, false %>
+    <%= f.label :sex, "woman" %>
   </div>
 
   <div>
     <%= f.label :work_id, style: "display: block" %>
-    <%= f.number_field :work_id %>
+    <%= f.select :work_id, options_for_select(Work.all.collect { |work| [work.title, work.id] }) %>
+  </div>
+
+  <div>
+    <%= f.label "Hobby:", style: "display: block" %> 
+    <%= f.select :hobbies, options_for_select(Hobby.all.collect { |hobby| [hobby.title, hobby] }, {prompt: '-Select-', multiple: true}) %>
+    <%= f.collection_select(:hobby_ids, Hobby.all, :id, :title, prompt: '-Select-', multiple: true) %>
+    <br>
+    <% Hobby.all.each do |hobby| %>
+     <%= check_box :hobby_users, hobby.title, value: hobby.id %>
+     <%= label :hobby_users, hobby.title %>
+     <br>
+    <% end %>
+    
+  <% fields_for :hobby_users do |hobby_users| %>
+    <%= hobby_users.label :hobbies %>
+    <%= hobby_users.select(:hobbies, Hobby.all.collect {|t| [t.title, t.id]}, {}, {multiple: true}) %>
+  <% end %>
+   
+<%# <% fields_for :hobby_users do |hobby_users| %>
+   <%# <%= hobby_users.select :hobby_id, options_from_collection_for_select(Hobby.all, :id, :title, @user.hobbies.map(&:id)), {include_blank: ''}, {class: 'multiselect', multiple: true}%>
+    <%# <% end %> 
+     <%# <% select(:hobby, :user_id, options_for_select(Hobby.all.collect { |hobby| [hobby.title, hobby.id] }) ) %>
+  <%# <select id="hobby-users" name="users_ids[]" , { multiple: true} multiple="true"> %> 
+  <%# <% Hobby.all.each do |hobby| %>
+     <%# <option value="<%= hobby.id %>
+     <%# ,<%= hobby.title %>
+     <%# </option> %> 
+  <%# <% end %> 
+  <%# </select>  %> 
+  <%# <%= collection_select(:user, :hobbies, Hobby.all, :id, :title, multiple: true, prompt: true) %> 
   </div>
 
   <div>
